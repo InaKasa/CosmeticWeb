@@ -82,7 +82,7 @@ namespace CosmeticWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Employee")]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,CreatedAt,ModifiedAt")] Category category)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,CreatedAt,ImageFile,ModifiedAt")] Category category)
         {
             if (id != category.Id)
                 return NotFound();
@@ -110,7 +110,8 @@ namespace CosmeticWeb.Controllers
                     }
 
                     category.ModifiedAt = DateTime.UtcNow;
-                    _context.Update(category);
+                   
+                    _context.Entry(previousPath).CurrentValues.SetValues(category);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
