@@ -1,0 +1,49 @@
+﻿@model CosmeticWeb.Models.Product
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_AdminPannel.cshtml";
+}
+
+<h3>Are you sure you want to delete this?</h3>
+<div class="row">
+    <div class="col-md-6">
+        <h2>Are you sure you want to delete this product?</h2>
+        <br />
+        <br />
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" readonly />
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" readonly />
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="PreviousPrice" class="control-label"></label>
+                <input asp-for="PreviousPrice" class="form-control" readonly />
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" readonly />
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label"></label>
+                <input asp-for="Rating" class="form-control" readonly />
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-primary" />
+                <br />
+                <a asp-action="Index" class="btn btn-primary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,120 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> SignInManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CosmeticWeb</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CosmeticWeb.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css">
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+</head>
+<body>
+
+    <header class="header">
+
+        <a asp-action="Index" asp-controller="Home" class="logo"> <img src="/Images/logo.png"> </a>
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <form action="" class="search-form">
+                <input type="search" name="" placeholder="search here..." id="search-box">
+                <label for="search-box" class="fas fa-search"></label>
+            </form>
+        }
+
+        <partial name="~/Views/Shared/_LoginPartial.cshtml" />
+
+    </header>
+
+    <nav class="navbar">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="">Logout</button>
+            </form>
+        }
+        <div id="close-navbar" class="fas fa-times"></div>
+        <a href="#home">home</a>
+        <a href="#shop">shop</a>
+        <a asp-action="AllProducts" asp-controller="Products">all products</a>
+        <a href="#gallery">gallery</a>
+        <a href="#team">team</a>
+        <a href="#arrivals">arrivals</a>
+        <a href="#blogs">blogs</a>
+    </nav>
+
+    @RenderBody()
+
+    <section class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+                <h3>quick links</h3>
+                <a class="link" href="#home"> <i class="fas fa-angle-right"></i> home</a>
+                <a class="link" href="#shop"> <i class="fas fa-angle-right"></i> shop</a>
+                <a class="link" href="#gallery"> <i class="fas fa-angle-right"></i> gallery</a>
+                <a class="link" href="#team"> <i class="fas fa-angle-right"></i> team</a>
+                <a class="link" href="#arrivals"> <i class="fas fa-angle-right"></i> arrivals</a>
+                <a class="link" href="#blogs"> <i class="fas fa-angle-right"></i> blogs</a>
+            </div>
+
+            <div class="box">
+                <h3>extra links</h3>
+                <a asp-action="Index" asp-controller="ShoppingCart" class="link"> <i class="fas fa-angle-right"></i> my order </a>
+                <a asp-action="Index" asp-controller="Wishlists" class="link"> <i class="fas fa-angle-right"></i> my wishlist </a>
+                <a asp-action="Create" asp-controller="ContactUs" class="link"> <i class="fas fa-angle-right"></i> contact us </a>
+                <a asp-action="Privacy" asp-controller="Home" class="link"> <i class="fas fa-angle-right"></i> private policy </a>
+                <a asp-action="Create" asp-controller="Testimonials" class="link"> <i class="fas fa-angle-right"></i> give a review </a>
+            </div>
+
+            <div class="box">
+                <h3>contact info</h3>
+                <p> <i class="fas fa-phone"></i> +355 69-94-37-078 </p>
+                <p> <i class="fas fa-phone"></i> +355 69-944-444 </p>
+                <p> <i class="fas fa-envelope"></i> inakasa@gmail.com </p>
+                <p> <i class="fas fa-map"></i> Tirana, Albania - 2022 </p>
+                <div class="share">
+                    <a href="#" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin"></a>
+                </div>
+            </div>
+
+            @if (User.IsInRole("User"))
+            {
+                <div class="box">
+                    <h3>newsletter</h3>
+                    <p>subscribe for latest updates</p>
+                    <form asp-action="Create" asp-controller="Subscribtions" enctype="multipart/form-data" method="post">
+                        <input type="email" name="Email" placeholder="Email .." id="email" class="email">
+                        <input type="submit" value="subscribe" class="btn">
+                    </form>
+                </div>
+            }
+
+        </div>
+
+        <div class="credit"> created by <span>@@TIK V3</span> | all rights reserved! </div>
+
+    </section>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js"></script>
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <script>
+        lightGallery(document.querySelector('.gallery .lightbox'));
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

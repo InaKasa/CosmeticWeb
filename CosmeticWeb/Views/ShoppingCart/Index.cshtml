@@ -1,0 +1,68 @@
+﻿@model CosmeticWeb.ViewModels.CartViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="shopping-cart">
+
+    <div class="title">
+        Shopping Bag
+    </div>
+    @if (Model.CartItems!.Count > 0)
+    {
+        @foreach (var item in Model.CartItems!)
+        {
+            <div class="item">
+
+                <div class="buttons">
+                    <a asp-action="Remove" asp-controller="ShoppingCart" asp-route-id="@item.ProductId" class="delete-btn"></a>
+                    <a asp-action="Create" asp-controller="Wishlists" asp-route-productId="@item.ProductId" class="like-btn"></a>
+                </div>
+
+                <div class="image">
+                    <img src="/CreatedProductsImages/@item.Image" width="80px" />
+                </div>
+
+                <div class="description">
+                    <span>@item.ProductName</span>
+                    <span>$@item.Price</span>
+                    <span>@item.ProductCategory</span>
+                </div>
+
+                <div class="quantity">
+
+                    <a asp-action="Add" asp-controller="ShoppingCart" asp-route-id="@item.ProductId">
+                        <i class="fas fa-solid fa-plus"></i>
+                    </a>
+
+                    <input type="text" name="name" value="@item.Quantity" readonly>
+
+                    <a asp-action="Decrease" asp-controller="ShoppingCart" asp-route-id="@item.ProductId">
+                        <i class="fas fa-solid fa-minus"></i>
+                    </a>
+
+                </div>
+
+                <div class="total-price">@Model.CartItems.Where(x => x.ProductId == item.ProductId).Sum(x => x.Quantity * x.Price).ToString("C2")</div>
+            </div>
+
+
+        }
+
+        <div class="item grandTotal">
+
+            <div class="ProccedToCheckout"> <a asp-action="ProccedToCheckout" asp-controller="ShoppingCart">check out</a> </div>
+
+            <div class="ClearCart"> <a asp-action="Clear" asp-controller="ShoppingCart"> Clear cart </a> </div>
+
+            <div class="sum-total-price">@Model.GrandTotal.ToString("C2")</div>
+        </div>
+    }
+    else
+    {
+        <div class="item emptyCart">
+            <h1 style="color:#dc3545">Your Cart Is Empty</h1>
+        </div>
+    }
+</div>

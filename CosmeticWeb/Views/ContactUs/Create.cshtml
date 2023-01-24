@@ -1,0 +1,43 @@
+﻿@model CosmeticWeb.Models.ContactUs
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="shopping-cart shopping-cart-Form">
+
+    <div class="title">
+        Contact us
+    </div>
+
+    <div class="item itemCheckOut">
+
+        <form asp-action="Create" asp-controller="ContactUs" method="post" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input asp-for="Name" class="form-control" placeholder="Name ..." required />
+            <span asp-validation-for="Name" class="text-danger"></span>
+
+            <input asp-for="Email" type="email" class="form-control" placeholder="Email ..." required />
+            <span asp-validation-for="Email" class="text-danger"></span>
+
+            <input asp-for="Subject" class="form-control" placeholder="Subject ..." required />
+            <span asp-validation-for="Subject" class="text-danger"></span>
+
+            <input asp-for="Message" class="form-control" placeholder="Message description ..." required />
+            <span asp-validation-for="Message" class="text-danger"></span>
+
+            <input type="submit" value="Send" class="btn btn-primary" />
+            <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Home</a>
+
+        </form>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

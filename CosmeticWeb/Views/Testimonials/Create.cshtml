@@ -1,0 +1,55 @@
+﻿@model CosmeticWeb.Models.Testimonial
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<style>
+    .testimonailsCreate{
+        height: 500px;
+    }
+</style>
+
+<div class="shopping-cart testimonailsCreate">
+
+    <div class="title">
+        Your review
+    </div>
+
+    <div class="item itemCheckOut">
+
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Name" class="form-control" placeholder="Name ..." />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input asp-for="Rating" class="form-control" placeholder="Rating ..." />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input asp-for="Description" class="form-control" placeholder="Description ..." />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input asp-for="ImageFile" class="form-control" accept="image/*" placeholder="Image ..." />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

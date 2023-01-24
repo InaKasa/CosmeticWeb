@@ -1,0 +1,64 @@
+﻿@model CosmeticWeb.Models.Product
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminPannel.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Create a new product</h2>
+        <br />
+        <br />
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" placeholder="Product name ..."/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" placeholder="Product price ..."/>
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="PreviousPrice" class="control-label"></label>
+                <input asp-for="PreviousPrice" class="form-control" placeholder="Product previous price ..."/>
+                <span asp-validation-for="PreviousPrice" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" placeholder="Product description ..."/>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label"></label>
+                <input asp-for="Rating" class="form-control" placeholder="Product rating ..." />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" class="form-control" accept="image/*" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <br />
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <br />
+                <a asp-action="Index" class="btn btn-primary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>

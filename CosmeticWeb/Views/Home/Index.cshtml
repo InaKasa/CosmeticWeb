@@ -1,0 +1,338 @@
+﻿@model IEnumerable<CosmeticWeb.Models.Product>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- home section starts  -->
+<section class="home" id="home">
+
+    @foreach (var item in ViewBag.FirstHomeSlider as List<HomeSlider>)
+    {
+        <div class="slide active">
+            <div class="content">
+                <img src="/HomeSliderImages/@item.Image" width="100px" height="100px" style="border-radius:50%">
+                <span>@item.Comment</span>
+                <h3>@item.Name</h3>
+                <a href="#" class="btn">read more</a>
+                <div class="controls">
+                    <div class="fas fa-angle-left" onclick="prev()"></div>
+                    <div class="fas fa-angle-right" onclick="next()"></div>
+                </div>
+            </div>
+            <div class="image">
+                <img src="/HomeSliderImages/@item.Image" alt="">
+            </div>
+        </div>
+    }
+
+    @foreach (var item in ViewBag.RestHomeSliders as List<HomeSlider>)
+    {
+        <div class="slide">
+            <div class="content">
+                <img src="/HomeSliderImages/@item.Image" width="100px" height="100px" style="border-radius:50%">
+                <span>@item.Comment</span>
+                <h3>@item.Name</h3>
+                <a href="#" class="btn">read more</a>
+                <div class="controls">
+                    <div class="fas fa-angle-left" onclick="prev()"></div>
+                    <div class="fas fa-angle-right" onclick="next()"></div>
+                </div>
+            </div>
+            <div class="image">
+                <img src="/HomeSliderImages/@item.Image">
+            </div>
+        </div>
+    }
+
+</section>
+<!-- home section ends -->
+<!-- category section starts  -->
+<section class="category">
+
+    @foreach (var item in ViewBag.Categories as List<Category>)
+    {
+        <a asp-action="Products" asp-controller="Categories" asp-route-id="@item.Id" class="box">
+            <img src="/CategoryImages/@item.Image">
+            <p>@item.Name</p>
+        </a>
+    }
+
+</section>
+<!-- category section ends -->
+<!-- about section starts  -->
+<section class="about" id="about">
+
+    <div class="content">
+        <span>why choose us?</span>
+        <h3>makeup makes difference</h3>
+        <p>In a beauty world of no’s and don’ts, we are all about can. Beauty that can perform without harmful toxins. Beauty that can strengthen skin with beneficial botanicals. Beauty that can bring out your absolute best. Be a #BeautyThatCan</p>
+        <a href="#" class="btn">read more</a>
+    </div>
+
+</section>
+<!-- about section ends -->
+<!-- shop section starts  -->
+<section class="shop" id="shop">
+
+    <div class="heading">
+        <h1>featured products</h1>
+        <p>Enjoy mineral makeup must-haves and best-selling beauty favorites for all skin tones and types.</p>
+    </div>
+
+    <div class="swiper products-slider">
+
+        <div class="swiper-wrapper">
+
+            @foreach (var item in ViewBag.Products as List<Product>)
+            {
+                <input type="text" hidden id="productId" value="@item.Id" />
+                <div class="swiper-slide slide">
+                    <div class="image">
+                        <span class="discount">-25%</span>
+                        <img src="/CreatedProductsImages/@item.Image" alt="">
+                        <div class="icons">
+                            <a class="fas fa-shopping-cart" asp-action="Add" asp-controller="ShoppingCart" asp-route-id="@item.Id"></a>
+                            <a class="fas fa-heart" id="" asp-action="Create" asp-controller="Wishlists" asp-route-productId="@item.Id"></a>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div class="stars">
+                            @for (var stars = 0; stars < item.Rating; stars++)
+                            {
+                                <i class="fas fa-star"></i>
+                            }
+                            @if (item.Rating % 1 > 0)
+                            {
+                                <i class="fas fa-star-half-alt"></i>
+                            }
+                        </div>
+                        <p>@item.Name</p>
+                        <div class="price">$@item.Price <span>$@item.PreviousPrice</span></div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+
+    </div>
+
+</section>
+<!-- shop section ends -->
+<!-- gallery section starts  -->
+<section class="gallery" id="gallery">
+
+    <div class="heading">
+        <h1>our gallery</h1>
+        <p>Discover face makeup with natural, long-wear performance that's as good for the skin as it is beautiful to wear. </p>
+    </div>
+
+    <div class="lightbox">
+        @foreach (var item in ViewBag.Gallery as List<Gallery>)
+        {
+            <a href="/GallerieImages/@item.Image"><img src="/GallerieImages/@item.Image" alt=""></a>
+        }
+    </div>
+
+</section>
+<!-- gallery section ends -->
+<!-- team section starts  -->
+<section class="team" id="team">
+
+    <div class="heading">
+        <h1>our team</h1>
+        <p>We partner with dermatologists, estheticians and makeup artists to create skin-loving formulas that achieve beautiful results, so you don’t have to choose between the skin you want and the look you love.</p>
+    </div>
+
+    <div class="box-container">
+
+        @foreach (var item in ViewBag.teamMembers as List<CosmeticTeamMember>)
+        {
+            <div class="box">
+                <div class="image">
+                    <img src="/CosmeticTeamMemberImages/@item.Image">
+
+                    <div class="share">
+                        @if (!String.IsNullOrEmpty(item.Facebook))
+                        {
+                            <a href="@item.Facebook" class="fab fa-facebook-f"></a>
+                        }
+
+                        @if (!String.IsNullOrEmpty(item.Twitter))
+                        {
+                            <a href="@item.Twitter" class="fab fa-twitter"></a>
+
+                        }
+
+                        @if (!String.IsNullOrEmpty(item.Instagram))
+                        {
+                            <a href="@item.Instagram" class="fab fa-instagram"></a>
+
+                        }
+
+                        @if (!String.IsNullOrEmpty(item.Linkedin))
+                        {
+                            <a href="@item.Linkedin" class="fab fa-linkedin"></a>
+
+                        }
+                    </div>
+
+                </div>
+                <div class="content">
+                    <h3>@item.Name</h3>
+                    <p>@item.Role</p>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</section>
+<!-- team section ends -->
+<!-- arrivals section starts  -->
+<section class="arrivals" id="arrivals">
+
+    <div class="heading">
+        <h1>new arrivals</h1>
+        <p>Reveal your radiance with long-wearing, natural makeup that is as good for the skin as it is beautiful to wear.</p>
+    </div>
+
+    <div class="swiper arrivals-slider">
+
+        <div class="swiper-wrapper">
+
+            @foreach (var item in ViewBag.NewArrivals as List<Product>)
+            {
+                <div class="swiper-slide slide">
+                    <div class="image">
+                        <img src="/CreatedProductsImages/@item.Image" alt="">
+                    </div>
+                    <div class="content">
+                        <p>@item.Name</p>
+                        <div class="price">$@item.Price <span>$@item.PreviousPrice</span></div>
+                        <a class="btn" asp-action="Add" asp-controller="ShoppingCart" asp-route-id="@item.Id">add to cart</a>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+
+    </div>
+
+</section>
+<!-- arrivals section ends -->
+<!-- reviews section starts  -->
+<section class="reviews">
+
+    <div class="swiper reviews-slider">
+
+        <div class="swiper-wrapper">
+
+            @foreach (var item in ViewBag.Testimonials as List<Testimonial>)
+            {
+                <div class="swiper-slide slide">
+                    <div class="user">
+                        <img src="/TestimonialsImages/@item.Image" alt="">
+                        <div class="info">
+                            <h3>@item.Name</h3>
+                            <div class="stars">
+                                @for (int i = 0; i < item.Rating; i++)
+                                {
+                                    <i class="fas fa-star"></i>
+                                }
+                                @*<i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>*@
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text">@item.Description</p>
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+<!-- reviews section ends  -->
+<!-- service section starts  -->
+<section class="service">
+
+    <div class="box">
+        <img src="./Images/service-1.png" alt="">
+        <h3>free shipping</h3>
+        <p>You get unlimited FREE Shipping on eligible items with Girly, with no minimum spend.</p>
+    </div>
+
+    <div class="box">
+        <img src="./Images/service-2.png" alt="">
+        <h3>secure payment</h3>
+        <p>Girly offers Secure and Fast Payment. No need to be afraid</p>
+    </div>
+
+    <div class="box">
+        <img src="./Images/service-3.png" alt="">
+        <h3>24/7 support</h3>
+        <p> customers can get help and find answers to questions as soon as they come up—24/7.</p>
+    </div>
+
+</section>
+<!-- service section ends -->
+<!-- blogs section starts  -->
+<section class="blogs" id="blogs">
+
+    <div class="heading">
+        <h1>our daily blogs</h1>
+        
+    </div>
+
+    <div class="swiper blogs-slider">
+
+        <div class="swiper-wrapper">
+
+            @foreach (var item in ViewBag.Blogs as List<Blog>)
+            {
+                <div class="swiper-slide slide">
+                    <div class="image">
+                        <img src="/BlogsImages/@item.Image" alt="">
+                        <div class="icons">
+                            <button onclick="Expand()" class="readMoreBtn"> <i class="fas fa-user"></i> read more </button>
+                            <a href="#"> <i class="fas fa-clock"></i> @DateTime.Parse(item.DateCreated.ToString()!).ToString("dddd, dd MMMM yyyy")</a>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <h3>@item.Name</h3>
+                        <p id="description">@item.Description</p>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+
+    </div>
+
+</section>
+<!-- blogs section ends -->
+
+<script>
+
+    function Expand() {
+
+        var desciption = document.getElementById("description");
+
+
+        desciption.style.height = "100%";
+    }
+
+</script>
