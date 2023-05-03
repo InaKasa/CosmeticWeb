@@ -43,7 +43,7 @@ namespace CosmeticWeb.Controllers
 
             return View(users);
         }
-
+        #region shfaq formen per te krijuar nje user te ri
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
@@ -51,7 +51,9 @@ namespace CosmeticWeb.Controllers
 
             return View();
         }
+        #endregion
 
+        #region krijon userin e ri me te dhenat e marra nga forma
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -75,7 +77,9 @@ namespace CosmeticWeb.Controllers
             }
             return View(identityUser);
         }
+        #endregion
 
+        #region fshin userin
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
@@ -87,6 +91,7 @@ namespace CosmeticWeb.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
         private IdentityUser CreateUser()
         {

@@ -60,7 +60,9 @@ namespace CosmeticWeb.Controllers
             }
             return View(cosmeticTeamMember);
         }
+        #endregion
 
+        #region shfaq formen per te edituar nje team member
         [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Edit(Guid? id)
         {

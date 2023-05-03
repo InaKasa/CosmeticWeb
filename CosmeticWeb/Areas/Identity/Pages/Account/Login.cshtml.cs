@@ -115,7 +115,7 @@ namespace CosmeticWeb.Areas.Identity.Pages.Account
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
-
+                #region
                 if (result.Succeeded)
                 {
                     var user = await _userManager.FindByNameAsync(Input.Email);
@@ -123,6 +123,7 @@ namespace CosmeticWeb.Areas.Identity.Pages.Account
 
                     if (role)
                         return RedirectToAction("Index", "Admin");
+                #endregion
 
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
